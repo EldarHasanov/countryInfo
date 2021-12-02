@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using DLA.Entites;
 
-namespace Catalog.DAL.Repositories.Interfaces
+namespace Catalog.DLA.Repositories.Interfaces
 {
     public interface ILokalityReposotory
         : IRepository<Lokality>

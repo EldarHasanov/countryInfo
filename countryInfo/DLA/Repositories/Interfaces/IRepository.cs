@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Catalog.DAL.Repositories.Interfaces
+namespace Catalog.DLA.Repositories.Interfaces
 {
     public interface IRepository<T> where T : class
     {
