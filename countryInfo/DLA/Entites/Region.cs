@@ -10,7 +10,7 @@ namespace DLA.Entites
     {
         public int RegionId { get; set; }
         public string Name { get; set; }
-        public uint population { get; set; }
+        public uint Population { get; set; }
         public IEnumerable<Lokality> Lokalities { get; set; }
     }
 }
