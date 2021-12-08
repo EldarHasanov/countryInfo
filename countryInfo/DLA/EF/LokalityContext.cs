@@ -17,7 +17,13 @@ namespace Catalog.DLA.EF
         public LokalityContext(DbContextOptions options)
             : base(options)
         {
+            //Database.EnsureCreated();
         }
 
+        /*protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            string connectionString = "server=localhost;database=country_info;password=466524483;uid=root;";
+            optionsBuilder.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 24)));
+        }*/
     }
 }

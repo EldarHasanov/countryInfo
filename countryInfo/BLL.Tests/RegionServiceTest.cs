@@ -5,11 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using BLL.Services.impl;
 using BLL.Services.Interface;
+using Catalog.DLA.EF;
 using Catalog.DLA.Repositories.Interfaces;
 using Catalog.DLA.UnitOfWork;
 using CCL.Security;
 using CCL.Security.Identify;
 using DLA.Entites;
+using Microsoft.EntityFrameworkCore;
 using Moq;
 using Xunit;
 using User = CCL.Security.Identify.User;
@@ -19,11 +21,12 @@ namespace BLL.Tests
     public class RegionServiceTest
     {
         [Fact]
-        public void Ctor_InputNull_ThrowArgumentNullException()
+        public void IUnitOfWork_InputNull_ThrowArgumentNullException()
         {
             // Arrange
+            //DbContextOptions opt = new DbContextOptionsBuilder<LokalityContext>().Options;
+            //IUnitOfWork nullUnitOfWork = new EFUnitOfWork(new LokalityContext(opt));
             IUnitOfWork nullUnitOfWork = null;
-
             // Act
             // Assert
             Assert.Throws<ArgumentNullException>(() => new RegionService(nullUnitOfWork));
@@ -34,6 +37,7 @@ namespace BLL.Tests
         {
             // Arrange
             User user = new Admin(1, "test", "ABC","Test");
+            //User user = new COD(1, "test", "ABC", "Test");
             SecurityContext.SetUser(user);
             var mockUnitOfWork = new Mock<IUnitOfWork>();
             IRegionService RegionService = new RegionService(mockUnitOfWork.Object);
