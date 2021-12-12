@@ -23,42 +23,34 @@ namespace BLL.Tests
         [Fact]
         public void IUnitOfWork_InputNull_ThrowArgumentNullException()
         {
-            // Arrange
             //DbContextOptions opt = new DbContextOptionsBuilder<LokalityContext>().Options;
             //IUnitOfWork nullUnitOfWork = new EFUnitOfWork(new LokalityContext(opt));
             IUnitOfWork nullUnitOfWork = null;
-            // Act
-            // Assert
+
             Assert.Throws<ArgumentNullException>(() => new RegionService(nullUnitOfWork));
         }
 
         [Fact]
         public void GetRegions_UserIsAdmin_ThrowMethodAccessException()
         {
-            // Arrange
             User user = new Admin(1, "test", "ABC","Test");
             //User user = new COD(1, "test", "ABC", "Test");
             SecurityContext.SetUser(user);
             var mockUnitOfWork = new Mock<IUnitOfWork>();
             IRegionService RegionService = new RegionService(mockUnitOfWork.Object);
 
-            // Act
-            // Assert
             Assert.Throws<MethodAccessException>(() => RegionService.GetRegions(0));
         }
 
         [Fact]
         public void GetRegions_RegionFromDAL_CorrectMappingToRegionDTO()
         {
-            // Arrange
             DMS user = new DMS(1, "test", "ABC", "Test");
             SecurityContext.SetUser(user);
             var RegionService = GetRegionService();
 
-            // Act
             var actualRegionDto = RegionService.GetRegions(0).First();
 
-            // Assert
             Assert.True(actualRegionDto.RegionId == 1 && actualRegionDto.Name == "testN" && actualRegionDto.Population == 1);
         }
 
