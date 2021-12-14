@@ -8,7 +8,7 @@ namespace BLL.DTO
 {
     public class LokalityDTO
     {
-        public int LokalityId { get; set; }
+        public int LocalityId { get; set; }
         public string Name { get; set; }
         public uint Population { get; set; }
         //public IEnumerable<District> Districts { get; set; }

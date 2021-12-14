@@ -18,7 +18,7 @@ using User = CCL.Security.Identify.User;
 
 namespace BLL.Tests
 {
-    public class RegionServiceTest
+    public class LokalityServiceTest
     {
         [Fact]
         public void IUnitOfWork_InputNull_ThrowArgumentNullException()
@@ -27,54 +27,54 @@ namespace BLL.Tests
             //IUnitOfWork nullUnitOfWork = new EFUnitOfWork(new LokalityContext(opt));
             IUnitOfWork nullUnitOfWork = null;
 
-            Assert.Throws<ArgumentNullException>(() => new RegionService(nullUnitOfWork));
+            Assert.Throws<ArgumentNullException>(() => new LokalityService(nullUnitOfWork));
         }
 
         [Fact]
-        public void GetRegions_UserIsAdmin_ThrowMethodAccessException()
+        public void GetLokalitys_UserIsAdmin_ThrowMethodAccessException()
         {
             User user = new Admin(1, "test", "ABC","Test");
             //User user = new COD(1, "test", "ABC", "Test");
             SecurityContext.SetUser(user);
             var mockUnitOfWork = new Mock<IUnitOfWork>();
-            IRegionService RegionService = new RegionService(mockUnitOfWork.Object);
+            ILokalityService LokalityService = new LokalityService(mockUnitOfWork.Object);
 
-            Assert.Throws<MethodAccessException>(() => RegionService.GetRegions(0));
+            Assert.Throws<MethodAccessException>(() => LokalityService.GetLokality(0));
         }
 
         [Fact]
-        public void GetRegions_RegionFromDAL_CorrectMappingToRegionDTO()
+        public void GetLokalitys_LokalityFromDAL_CorrectMappingToLokalityDTO()
         {
             DMS user = new DMS(1, "test", "ABC", "Test");
             SecurityContext.SetUser(user);
-            var RegionService = GetRegionService();
+            var LokalityService = GetLokalityService();
 
-            var actualRegionDto = RegionService.GetRegions(0).First();
+            var actualLokalityDto = LokalityService.GetLokality(0).First();
 
-            Assert.True(actualRegionDto.RegionId == 1 && actualRegionDto.Name == "testN" && actualRegionDto.Population == 1);
+            Assert.True(actualLokalityDto.LocalityId == 1 && actualLokalityDto.Name == "testN" && actualLokalityDto.Population == 1);
         }
 
 
-        IRegionService GetRegionService()
+        ILokalityService GetLokalityService()
         {
             var mockContext = new Mock<IUnitOfWork>();
-            var expectedRegion = new Region() { RegionId = 1, Name = "testN", Population = 1};
-            var mockDbSet = new Mock<IRegionRepository>();
+            var expectedLokality = new Lokality() { LocalityId = 1, Name = "testN", Population = 1};
+            var mockDbSet = new Mock<ILokalityReposotory>();
             mockDbSet.Setup(z => z.Find(
-                        It.IsAny<Func<Region, bool>>(),
+                        It.IsAny<Func<Lokality, bool>>(),
                         It.IsAny<int>(),
                         It.IsAny<int>()))
                 .Returns(
-                    new List<Region>() { expectedRegion }
+                    new List<Lokality>() { expectedLokality }
                 );
             mockContext
                 .Setup(context =>
-                    context.Regions)
+                    context.Lokalitys)
                 .Returns(mockDbSet.Object);
 
-            IRegionService RegionService = new RegionService(mockContext.Object);
+            ILokalityService LokalityService = new LokalityService(mockContext.Object);
 
-            return RegionService;
+            return LokalityService;
         }
     }
 }

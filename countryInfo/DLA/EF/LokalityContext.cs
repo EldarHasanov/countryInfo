@@ -11,19 +11,21 @@ namespace Catalog.DLA.EF
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Region> Regions { get; set; }
-        public DbSet<Lokality> Lokalities { get; set; }
+        //public DbSet<Lokality> Localities { get; set; }
+        public DbSet<Lokality> Localities { get; set; }
         public DbSet<District> Districts { get; set; }
 
-        public LokalityContext(DbContextOptions options)
-            : base(options)
+        public LokalityContext()
+            //: base()
         {
-            //Database.EnsureCreated();
+            Database.EnsureCreated();
         }
 
-        /*protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            string connectionString = "server=localhost;database=country_info;password=466524483;uid=root;";
+            string connectionString = "server=localhost;database=country_info;password=1111;uid=admin;";
+            
             optionsBuilder.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 24)));
-        }*/
+        }
     }
 }

@@ -28,7 +28,27 @@ namespace DLA.Tests
         public void Create_InputLokalityInstance_CalledAddMethodOfDBSetWithLokalityInstance()
         {
 
-            DbContextOptions opt = new DbContextOptionsBuilder<LokalityContext>().Options;
+            using (LokalityContext db = new LokalityContext())
+            {
+                //User user1 = new User { Name = "Tom", Age = 33 };
+                //User user2 = new User { Name = "Alice", Age = 26 };
+
+
+                //Lokality Lok = new Lokality {LocalityId = 4, Name = "Chernihiv", Population = 1985};
+
+                //db.Localities.
+
+                db.Regions.AddRange(
+                    new Region
+                    {
+                        //RegionId = 4,
+                        Name = "Chernihiv",
+                        Population = 1985
+                    });
+
+                db.SaveChanges();
+            }
+            /*DbContextOptions opt = new DbContextOptionsBuilder<LokalityContext>().Options;
             var mockContext = new Mock<LokalityContext>(opt);
             var mockDbSet = new Mock<DbSet<Lokality>>();
             mockContext.Setup(context => context.Set<Lokality>()).Returns(mockDbSet.Object);
@@ -38,7 +58,7 @@ namespace DLA.Tests
 
             repository.Create(expectedLokality);
 
-            mockDbSet.Verify(dbSet => dbSet.Add(expectedLokality), Times.Once());
+            mockDbSet.Verify(dbSet => dbSet.Add(expectedLokality), Times.Once());*/
         }
 
         [Fact]
@@ -50,12 +70,12 @@ namespace DLA.Tests
             mockContext.Setup(context => context.Set<Lokality>()).Returns(mockDbSet.Object);
             var repository = new TestLocalityRepository(mockContext.Object);
 
-            Lokality expectedLokality = new Lokality() { LokalityId = 1 };
-            mockDbSet.Setup(mock => mock.Find(expectedLokality.LokalityId)).Returns(expectedLokality);
+            Lokality expectedLokality = new Lokality() { LocalityId = 1 };
+            mockDbSet.Setup(mock => mock.Find(expectedLokality.LocalityId)).Returns(expectedLokality);
 
-            repository.Delete(expectedLokality.LokalityId);
+            repository.Delete(expectedLokality.LocalityId);
 
-            mockDbSet.Verify(dbSet => dbSet.Find(expectedLokality.LokalityId), Times.Once());
+            mockDbSet.Verify(dbSet => dbSet.Find(expectedLokality.LocalityId), Times.Once());
             mockDbSet.Verify(dbSet => dbSet.Remove(expectedLokality), Times.Once());
         }
 
@@ -68,13 +88,13 @@ namespace DLA.Tests
             var mockDbSet = new Mock<DbSet<Lokality>>();
             mockContext.Setup(context => context.Set<Lokality>()).Returns(mockDbSet.Object);
 
-            Lokality expectedLokality = new Lokality() { LokalityId = 1 };
-            mockDbSet.Setup(mock => mock.Find(expectedLokality.LokalityId)).Returns(expectedLokality);
+            Lokality expectedLokality = new Lokality() { LocalityId = 1 };
+            mockDbSet.Setup(mock => mock.Find(expectedLokality.LocalityId)).Returns(expectedLokality);
             var repository = new TestLocalityRepository(mockContext.Object);
 
-            var actualLokality = repository.Get(expectedLokality.LokalityId);
+            var actualLokality = repository.Get(expectedLokality.LocalityId);
 
-            mockDbSet.Verify(dbSet => dbSet.Find(expectedLokality.LokalityId), Times.Once());
+            mockDbSet.Verify(dbSet => dbSet.Find(expectedLokality.LocalityId), Times.Once());
             Assert.Equal(expectedLokality, actualLokality);
         }
     }
