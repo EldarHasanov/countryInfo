@@ -12,6 +12,7 @@ namespace CCL.Security.Identify
         public Admin(int userId, string userName, string password, string email)
             : base(userId, userName, password, email, nameof(Admin))
         {
+            
         }
     }
 }

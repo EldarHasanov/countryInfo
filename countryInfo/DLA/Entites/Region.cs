@@ -11,6 +11,6 @@ namespace DLA.Entites
         public int RegionId { get; set; }
         public string Name { get; set; }
         public uint Population { get; set; }
-        public IEnumerable<Lokality> Loсalities { get; set; }
+        public List<Lokality> Loсalities { get; set; }
     }
 }

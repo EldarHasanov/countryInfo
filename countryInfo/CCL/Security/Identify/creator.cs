@@ -6,16 +6,37 @@ using System.Threading.Tasks;
 
 namespace CCL.Security.Identify
 {
-    abstract class creator
+    public abstract class creator
     {
         public abstract User FactoryUser(int userId, string userName, string password, string email);
     }
 
-    class CODCreator : creator
+    public class CODCreator : creator
     {
         public override User FactoryUser(int userId, string userName, string password, string email)
         {
             return new COD(userId,userName,password,email);
+        }
+    }
+    public class DABICreator : creator
+    {
+        public override User FactoryUser(int userId, string userName, string password, string email)
+        {
+            return new DABI(userId, userName, password, email);
+        }
+    }
+    public class RACSCreator : creator
+    {
+        public override User FactoryUser(int userId, string userName, string password, string email)
+        {
+            return new RACS(userId, userName, password, email);
+        }
+    }
+    public class DMSCreator : creator
+    {
+        public override User FactoryUser(int userId, string userName, string password, string email)
+        {
+            return new DMS(userId, userName, password, email);
         }
     }
 }

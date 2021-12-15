@@ -13,6 +13,6 @@ namespace DLA.Entites
         public int LocalityId { get; set; }
         public string Name { get; set; }
         public uint Population { get; set; }
-        public IEnumerable<District> Districts { get; set; }
+        public List<District> Districts { get; set; }
     }
 }
